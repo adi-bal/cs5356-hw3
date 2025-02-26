@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aditya Ballaki - Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+
+    <meta name="description" content="Aditya Ballaki - Electrical and Computer Engineering Portfolio">
+
+    <!-- Meta Properties / extra credit -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://your-website-url.com/">
+    <meta property="og:title" content="Aditya Ballaki | ECE Portfolio">
+    <meta property="og:description" content="Electrical and Computer Engineering graduate student at Cornell Tech with experience in machine learning and software development.">
+    <meta property="og:image" content="https://your-website-url.com/preview-image.jpg">
+
+<body>
+    <header>
+        <div class="container header-container">
+            <a href="#" class="logo">Aditya Ballaki</a>
+            <nav class="nav-menu">
+                <ul>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#education">Education</a></li>
+                    <li><a href="#experience">Experience</a></li>
+                    <li><a href="#tech-news">Tech News</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="about" class="hero">
+        <div class="hero-text">
+            <h1>Hello, I'm <span>Aditya Ballaki</span></h1>
+            <p>An Electrical and Computer Engineering grad student at Cornell Tech.</p>
+            <div class="social-icons">
+                <a href="https://www.linkedin.com/in/aditya-ballaki/" class="social-link" target="_blank">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a href="https://github.com/adi-bal" class="social-link" target="_blank">
+                    <i class="fab fa-github"></i>
+                </a>
+            </div>
+        </div>
+        <div class="hero-image">
+            <div class="profile-container">
+                <img src="spongebob.jpg" alt="Aditya Ballaki" id="profilePic" class="profile-pic">
+            </div>
+        </div>
+    </section>
+
+    <section id="education">
+        <div class="container">
+            <div class="section-title">
+                <h2>Education</h2>
+            </div>
+            <div class="education-container">
+                <div class="education-card">
+                    <div class="education-card-header">
+                        <h3 class="education-title">Cornell University</h3>
+                        <div class="education-subtitle">Master of Engineering in Electrical and Computer Engineering</div>
+                        <span class="education-date">May 2025</span>
+                    </div>
+                    <div class="education-card-body">
+                        <p class="education-detail">Coursework in Machine Learning and Computer Science</p>
+                    </div>
+                </div>
+                <div class="education-card">
+                    <div class="education-card-header">
+                        <h3 class="education-title">Nanyang Technological University</h3>
+                        <div class="education-subtitle">Bachelor of Engineering in Electrical and Electronic Engineering</div>
+                        <span class="education-date">Jun 2024</span>
+                    </div>
+                    <div class="education-card-body">
+                        <p class="education-detail">NTU President Research Scholar</p>
+                        <p class="education-detail">COurs in Computer Engineering</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience">
+        <div class="container">
+            <div class="section-title">
+                <h2>Experience</h2>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <span class="timeline-date">Aug 2024 - Present</span>
+                        <h3 class="timeline-title">Break Through Tech</h3>
+                        <div class="timeline-subtitle">AI Studio Course Support, New York, NY</div>
+                        <div class="timeline-details">
+                            <ul>
+                                <li>Coached and mentored over 30 women in AI, guiding them through the development of their AI studio projects.</li>
+                                <li>Fine-tuned Large Language Models and developed multimodal RAG chatbots for 6 custom datasets.</li>
+                                <li>Assisted in building an object detection model with 95% accuracy using OpenCV, Python, Flask, and Docker.</li>
+                                <li>Led training sessions on MLOps and Data Engineering.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <span class="timeline-date">Jun 2022 - Dec 2022</span>
+                        <h3 class="timeline-title">Zendesk</h3>
+                        <div class="timeline-subtitle">Software Engineering Intern, Singapore</div>
+                        <div class="timeline-details">
+                            <ul>
+                                <li>Developed the backend for Zendesk Chat and Messaging, serving 200,000+ businesses daily.</li>
+                                <li>Engineered a Python microservice for recovering 100% of failed messages in Kafka queues.</li>
+                                <li>Resolved bugs and bottlenecks, reducing chat processing time by 10 minutes.</li>
+                                <li>Refactored microservices with Vert.x Java and improved observability with metrics and logging.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="tech-news">
+        <div class="container">
+            <div class="section-title">
+                <h2>Latest Tech News</h2>
+            </div>
+            <div class="news-container">
+                <div id="news-content">Click the button to load latest tech news</div>
+                <button id="fetchNews">Get Tech News</button>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // for getting tech news 
+        document.getElementById('fetchNews').addEventListener('click', function() {
+            const newsContent = document.getElementById('news-content');
+            newsContent.textContent = 'Loading...';
+            
+            fetch('https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty')
+                .then(response => response.json())
+                .then(ids => {
+                    const topStoryIds = ids.slice(0, 5);
+                    const storyPromises = topStoryIds.map(id => 
+                        fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json?print=pretty`)
+                        .then(response => response.json())
+                    );
+                    
+                    return Promise.all(storyPromises);
+                })
+                .then(stories => {
+                    if (stories.length === 0) {
+                        newsContent.textContent = 'No stories found';
+                        return;
+                    }
+                    
+                    newsContent.innerHTML = '';
+                    stories.forEach(story => {
+                        const storyDiv = document.createElement('div');
+                        storyDiv.className = 'news-item';
+                        
+                        storyDiv.innerHTML = `
+                            <div class="news-title">
+                                <a href="${story.url}" class="news-link" target="_blank">${story.title}</a>
+                            </div>
+                            <div class="news-meta">
+                                ${story.score} points | by ${story.by}
+                            </div>
+                        `;
+                        
+                        newsContent.appendChild(storyDiv);
+                    });
+                })
+                .catch(error => {
+                    newsContent.textContent = 'Failed to fetch news. Please try again.';
+                    console.error('Error:', error);
+                });
+        });
+    </script>
+</body>
+</html>
